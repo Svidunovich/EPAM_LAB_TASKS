@@ -27,7 +27,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QStringList list;
+    QStringList *list;
     QStringListModel *model;
 
 };

@@ -7,29 +7,33 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     ui->plainTextEdit->appendPlainText("Enter text");
+    list = new QStringList();
+    model = new QStringListModel(this);
 }
 
 MainWindow::~MainWindow()
 {
+    delete list;
+    delete model;
     delete ui;
 }
 
 
 void MainWindow::on_pushButton_clicked()
 {
-    model = new QStringListModel(this);
-    list.append(ui->plainTextEdit->toPlainText());
+    if(ui->plainTextEdit->toPlainText() == "")
+        return;
+    list->append(ui->plainTextEdit->toPlainText());
     ui->plainTextEdit->clear();
-    model->setStringList(list);
+    model->setStringList(*list);
     ui->listView->setModel(model);
     ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    model = new QStringListModel(this);
-    list.append("BOT:   RANDOM MESSAGE...");
-    model->setStringList(list);
+    list->append("BOT:   RANDOM MESSAGE...");
+    model->setStringList(*list);
     ui->listView->setModel(model);
     ui->listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
